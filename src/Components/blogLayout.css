@@ -1,0 +1,13 @@
+.blogbar {
+  height: 100vh;
+  background-color: #121212;
+  width: 10rem;
+  padding: 4rem 0rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-x: hidden;
+  position: fixed;
+  left: 0;
+  top: 0;
+}

@@ -1,0 +1,15 @@
+.appbar {
+  width: calc(100vw - 10rem);
+  background-color: #d3d3d3;
+  position: absolute;
+  height: 5rem;
+  right: 0;
+  top: 0;
+}
+
+.flex {
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
