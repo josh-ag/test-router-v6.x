@@ -10,8 +10,7 @@ export const ErrorElement = () => {
         <h2>Oops!</h2>
         <p style={{ textAlign: "center" }}>
           Something went wrong
-          <br />{" "}
-          {(error instanceof Error && error?.message) || error?.toString()}
+          <br /> {error instanceof Error && error?.message}
         </p>
       </div>
 

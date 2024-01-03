@@ -7,8 +7,7 @@ export type PostDataType = {
 
 export const getPosts = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/posts?_limit=10`);
-    return response;
+    return await fetch(`${API_BASE_URL}/posts?_limit=10`);
   } catch (error) {
     throw error;
   }
