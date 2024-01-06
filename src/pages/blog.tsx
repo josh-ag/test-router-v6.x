@@ -1,13 +1,18 @@
 import { Suspense } from "react";
 import { Await, Link, defer, useLoaderData } from "react-router-dom";
 import { getPosts } from "../services";
-import { PostType } from "./postDetails";
 
 export const BlogPage = () => {
-  const { posts }: PostType | any = useLoaderData();
+  const { posts }: any = useLoaderData();
 
   return (
-    <Suspense fallback={<p className="text">please wait....</p>}>
+    <Suspense
+      fallback={
+        <p className="title" style={{ textAlign: "center" }}>
+          please wait....
+        </p>
+      }
+    >
       <Await
         resolve={posts}
         errorElement={
@@ -15,7 +20,8 @@ export const BlogPage = () => {
             Error fetching posts
           </p>
         }
-        children={(posts) => {
+      >
+        {(posts) => {
           return (
             <div className="container">
               <div className="vstack" style={{ gap: "2rem" }}>
@@ -29,25 +35,24 @@ export const BlogPage = () => {
                     gap: ".5rem",
                   }}
                 >
-                  {posts &&
-                    posts.map((post: any) => (
-                      <Link
-                        to={"/blogs/post/" + post.id}
-                        className="card"
-                        key={post.id}
-                      >
-                        <h2 className="title" style={{ color: "#555" }}>
-                          {post.title}
-                        </h2>
-                        <p className="text">{post.body}</p>
-                      </Link>
-                    ))}
+                  {posts.map((post) => (
+                    <Link
+                      to={"/blogs/post/" + post.id}
+                      className="card"
+                      key={post.id}
+                    >
+                      <h2 className="title" style={{ color: "#555" }}>
+                        {post.title}
+                      </h2>
+                      <p className="text">{post.body}</p>
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>
           );
         }}
-      />
+      </Await>
     </Suspense>
   );
 };
@@ -57,10 +62,7 @@ export const loader = async () => {
     const resp = await getPosts();
 
     if (!resp.ok) {
-      return {
-        status: resp.status,
-        message: resp.statusText,
-      };
+      throw new Response(resp.statusText, { status: resp.status });
     }
 
     return defer({ posts: resp.json() });
